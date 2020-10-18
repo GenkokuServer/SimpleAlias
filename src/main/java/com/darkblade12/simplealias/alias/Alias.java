@@ -158,7 +158,7 @@ public final class Alias implements Nameable {
         if (usageCheckMinParams < 0) {
             throw new InvalidValueException(AliasSetting.USAGE_CHECK_MIN_PARAMS.getPath(), usageCheckMinParams, "cannot be lower than 1");
         }
-        usageCheckMinParams = config.getInt(AliasSetting.USAGE_CHECK_MAX_PARAMS.getPath());
+        usageCheckMaxParams = config.getInt(AliasSetting.USAGE_CHECK_MAX_PARAMS.getPath());
         if (usageCheckMaxParams >= 0 && usageCheckMaxParams < usageCheckMinParams) {
             throw new InvalidValueException(AliasSetting.USAGE_CHECK_MAX_PARAMS, usageCheckMinParams,
                                             "cannot be lower than value of " + AliasSetting.USAGE_CHECK_MIN_PARAMS);
@@ -198,7 +198,7 @@ public final class Alias implements Nameable {
         delayEnabled = config.getBoolean(AliasSetting.DELAY_ENABLED.getPath());
         delayCancelOnMove = config.getBoolean(AliasSetting.DELAY_CANCEL_ON_MOVE.getPath());
         delayDuration = config.getInt(AliasSetting.DELAY_DURATION.getPath());
-        if (delayDuration < 1) {
+        if (delayEnabled && delayDuration < 1) {
             throw new InvalidValueException(AliasSetting.DELAY_DURATION, delayDuration, "cannot be lower than 1");
         }
         delayMessage = MessageUtils.translateMessage(config.getString(AliasSetting.DELAY_MESSAGE.getPath(), ""));
